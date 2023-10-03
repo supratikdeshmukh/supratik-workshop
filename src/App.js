@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
+import NoteForm from "./components/NoteForm";
+import NoteList from "./components/NoteList";
 
 const App = () => {
   const [note, setNote] = useState("");
@@ -43,26 +45,18 @@ const App = () => {
     <div className="App">
       <div className="container">
         <h1>Note Application</h1>
-        <form className="noteForm" onSubmit={handleSubmit}>
-          <input
-            type="text"
-            onChange={(e) => setNote(e.target.value)}
-            value={note}
-          />
-          <button type="submit">{editId ? "Update" : "Save"}</button>
-        </form>
+        <NoteForm
+          handleSubmit={handleSubmit}
+          setNote={setNote}
+          note={note}
+          editId={editId}
+        />
 
-        <ul className="allNote">
-          {notes.map((e) => (
-            <li className="singleNote">
-              <span className="noteText" key={e.id}>
-                {e.note}
-              </span>
-              <button onClick={() => handleEdit(e.id)}>Edit</button>
-              <button onClick={() => handleDelete(e.id)}>Delete</button>
-            </li>
-          ))}
-        </ul>
+        <NoteList
+          notes={notes}
+          handleEdit={handleEdit}
+          handleDelete={handleDelete}
+        />
       </div>
     </div>
   );
